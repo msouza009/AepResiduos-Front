@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom"
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom"
 import Home from "../pages/Home"
 import Empresas from "../pages/Empresas"
 import Agendar from "../pages/Agendar"
@@ -8,12 +8,15 @@ import Register from "../pages/Register"
 import Sobre from "../pages/Sobre"
 import Recompensas from "../pages/Recompensas"
 import Header from "../components/Header"
-import Footer from "../components/Footer"
 
 function AppRoutes() {
+  const location = useLocation()
+
+  const hideHeader = ["/login", "/register"].includes(location.pathname)
+
   return (
-    <BrowserRouter>
-      <Header />
+    <>
+      {!hideHeader && <Header />}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/empresas" element={<Empresas />} />
@@ -24,9 +27,14 @@ function AppRoutes() {
         <Route path="/sobre" element={<Sobre />} />
         <Route path="/recompensas" element={<Recompensas />} />
       </Routes>
-      <Footer />
-    </BrowserRouter>
+    </>
   )
 }
 
-export default AppRoutes
+export default function RoutesWrapper() {
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  )
+}

@@ -14,11 +14,11 @@ function Dashboard() {
       <h1 className="text-4xl font-bold mb-8">Dashboard</h1>
 
       {/* Pontuação */}
-      <div className="bg-white rounded-xl shadow p-6 mb-10 flex items-center gap-6">
+      <div className="bg-white dark:bg-[#1f2937] rounded-xl shadow p-6 mb-10 flex items-center gap-6">
         <Gift className="w-12 h-12 text-[#FACC15]" />
         <div>
-          <p className="text-xl font-semibold">Seus Pontos</p>
-          <p className="text-3xl font-bold">{pontos}</p>
+          <p className="text-xl font-semibold dark:text-white">Seus Pontos</p>
+          <p className="text-3xl font-bold dark:text-white">{pontos}</p>
         </div>
       </div>
 
@@ -27,28 +27,42 @@ function Dashboard() {
         <h2 className="text-2xl font-semibold mb-4">Meus Agendamentos</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {agendamentos.map((item) => (
-            <div key={item.id} className="bg-white p-6 rounded-xl shadow flex flex-col gap-4">
+            <div
+              key={item.id}
+              className="bg-white dark:bg-[#1f2937] p-6 rounded-xl shadow flex flex-col gap-4"
+            >
               <div className="flex items-center gap-4">
                 <CalendarCheck className="w-8 h-8 text-[#16A34A]" />
                 <div>
-                  <p className="text-lg font-semibold">Data</p>
-                  <p>{item.data}</p>
+                  <p className="text-lg font-semibold dark:text-white">Data</p>
+                  <p className="dark:text-gray-300">{item.data}</p>
                 </div>
               </div>
+
               <div className="flex items-center gap-4">
                 <Trash2 className="w-8 h-8 text-[#FACC15]" />
                 <div>
-                  <p className="text-lg font-semibold">Status</p>
-                  <p className={item.status === "Concluído" ? "text-green-600" : item.status === "Pendente" ? "text-yellow-600" : "text-red-600"}>
+                  <p className="text-lg font-semibold dark:text-white">Status</p>
+                  <p
+                    className={`${
+                      item.status === "Concluído"
+                        ? "text-green-600"
+                        : item.status === "Pendente"
+                        ? "text-yellow-600"
+                        : "text-red-600"
+                    }`}
+                  >
                     {item.status}
                   </p>
                 </div>
               </div>
+
               {item.status === "Pendente" && (
                 <button className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600">
                   Cancelar Agendamento
                 </button>
               )}
+
               {item.status === "Concluído" && (
                 <div className="flex items-center gap-2 text-green-600">
                   <CheckCircle2 className="w-5 h-5" />
